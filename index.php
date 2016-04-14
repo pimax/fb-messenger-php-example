@@ -16,6 +16,7 @@ use pimax\Messages\Message;
 use pimax\Messages\MessageButton;
 use pimax\Messages\StructuredMessage;
 use pimax\Messages\MessageElement;
+use pimax\Messages\MessageReceiptElement;
 use pimax\Messages\Address;
 use pimax\Messages\Summary;
 use pimax\Messages\Adjustment;
@@ -115,9 +116,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             'order_url' => 'http://facebook.com',
                             'timestamp' => time(),
                             'elements' => [
-                                new MessageElement("First item", "Item description", "", 1, 300, "USD"),
-                                new MessageElement("Second item", "Item description", "", 2, 200, "USD"),
-                                new MessageElement("Third item", "Item description", "", 3, 1800, "USD"),
+                                new MessageReceiptElement("First item", "Item description", "", 1, 300, "USD"),
+                                new MessageReceiptElement("Second item", "Item description", "", 2, 200, "USD"),
+                                new MessageReceiptElement("Third item", "Item description", "", 3, 1800, "USD"),
                             ],
                             'address' => new Address([
                                 'country' => 'US',
