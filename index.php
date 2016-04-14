@@ -15,6 +15,10 @@ use pimax\FbBotApp;
 use pimax\Messages\Message;
 use pimax\Messages\MessageButton;
 use pimax\Messages\StructuredMessage;
+use pimax\Messages\MessageElement;
+use pimax\Messages\Address;
+use pimax\Messages\Summary;
+use pimax\Messages\Adjustment;
 
 // Make Bot Instance
 $bot = new FbBotApp($token);
@@ -78,17 +82,17 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         StructuredMessage::TYPE_GENERIC,
                         [
                             'elements' => [
-                                new \pimax\Messages\MessageElement("First item", "Item description", "", [
+                                new MessageElement("First item", "Item description", "", [
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
+                                    new MessageButton(MessageButton::TYPE_WEB, 'Second button')
+                                ]),
+
+                                new MessageElement("Second item", "Item description", "", [
                                     new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
                                     new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
                                 ]),
 
-                                new \pimax\Messages\MessageElement("Second item", "Item description", "", [
-                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
-                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
-                                ]),
-
-                                new \pimax\Messages\MessageElement("Third item", "Item description", "", [
+                                new MessageElement("Third item", "Item description", "", [
                                     new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
                                     new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
                                 ])
@@ -100,6 +104,48 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 // When bot receive "receipt"
                 case 'receipt':
+
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_RECEIPT,
+                        [
+                            'recipient_name' => '',
+                            'order_number' => '1434234',
+                            'currency' => 'USD',
+                            'payment_method' => 'VISA',
+                            'order_url' => 'http://facebook.com',
+                            'timestamp' => time(),
+                            'elements' => [
+                                new MessageElement("First item", "Item description", "", 1, 300, "USD"),
+                                new MessageElement("Second item", "Item description", "", 2, 200, "USD"),
+                                new MessageElement("Third item", "Item description", "", 3, 1800, "USD"),
+                            ],
+                            'address' => new Address([
+                                'country' => 'US',
+                                'state' => 'CA',
+                                'postal_code' => 94025,
+                                'city' => 'Menlo Park',
+                                'street_1' => '1 Hacker Way',
+                                'street_2' => ''
+                            ]),
+                            'summary' => new Summary([
+                                'total_cost' => 2300,
+                                'shipping_cost' => 150,
+                                'total_tax' => 50,
+                                'subtotal' => 2500
+                            ]),
+                            'adjustments' => [
+                                new Adjustment([
+                                    'name' => 'New Customer Discount',
+                                    'amount' => 20
+                                ]),
+
+                                new Adjustment([
+                                    'name' => '$10 Off Coupon',
+                                    'amount' => 10
+                                ])
+                            ]
+                        ]
+                    ));
 
                 break;
 
