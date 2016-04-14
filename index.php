@@ -109,7 +109,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->send(new StructuredMessage($message['sender']['id'],
                         StructuredMessage::TYPE_RECEIPT,
                         [
-                            'recipient_name' => '',
+                            'recipient_name' => 'Fox Brown',
                             'order_number' => '1434234',
                             'currency' => 'USD',
                             'payment_method' => 'VISA',
@@ -129,10 +129,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                                 'street_2' => ''
                             ]),
                             'summary' => new Summary([
-                                'total_cost' => 2300,
+                                'subtotal' => 2300,
                                 'shipping_cost' => 150,
                                 'total_tax' => 50,
-                                'subtotal' => 2500
+                                'total_cost' => 2500,
                             ]),
                             'adjustments' => [
                                 new Adjustment([
