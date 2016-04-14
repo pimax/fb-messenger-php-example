@@ -74,6 +74,28 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 // When bot receive "generic"
                 case 'generic':
 
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_GENERIC,
+                        [
+                            'elements' => [
+                                new \pimax\Messages\MessageElement("First item", "Item description", "", [
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
+                                ]),
+
+                                new \pimax\Messages\MessageElement("Second item", "Item description", "", [
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
+                                ]),
+
+                                new \pimax\Messages\MessageElement("Third item", "Item description", "", [
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
+                                ])
+                            ]
+                        ]
+                    ));
+                    
                 break;
 
                 // When bot receive "receipt"
