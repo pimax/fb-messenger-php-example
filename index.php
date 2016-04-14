@@ -85,7 +85,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             'elements' => [
                                 new MessageElement("First item", "Item description", "", [
                                     new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
-                                    new MessageButton(MessageButton::TYPE_WEB, 'Second button')
+                                    new MessageButton(MessageButton::TYPE_POSTBACK, 'Web link', 'http://facebook.com')
                                 ]),
 
                                 new MessageElement("Second item", "Item description", "", [
