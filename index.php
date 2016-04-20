@@ -13,6 +13,8 @@ require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 use pimax\FbBotApp;
 use pimax\Messages\Message;
+use pimax\Messages\ImageMessage;
+use pimax\UserProfile;
 use pimax\Messages\MessageButton;
 use pimax\Messages\StructuredMessage;
 use pimax\Messages\MessageElement;
@@ -59,6 +61,26 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 // When bot receive "text"
                 case 'text':
                     $bot->send(new Message($message['sender']['id'], 'This is a simple text message.'));
+                    break;
+
+                // When bot receive "image"
+                case 'image':
+                    $bot->send(new ImageMessage($message['sender']['id'], 'https://developers.facebook.com/images/devsite/fb4d_logo-2x.png'));
+                    break;
+
+                // When bot receive "profile"
+                case 'profile':
+
+                    $user = $bot->userProfile($message['sender']['id']);
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_GENERIC,
+                        [
+                            'elements' => [
+                                new MessageElement($user->getFirstName()." ".$user->getLastName(), " ", $user->getPicture())
+                            ]
+                        ]
+                    ));
+
                     break;
 
                 // When bot receive "button"
