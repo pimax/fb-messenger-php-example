@@ -1,7 +1,7 @@
 FB Messenger Bot PHP API Sample
 ========================
 
-This is a sample for Facebook Messenger PHP Bot API - [https://github.com/pimax/fb-messenger-php](https://github.com/pimax/fb-messenger-php)
+This is an example for Facebook Messenger PHP Bot API - [https://github.com/pimax/fb-messenger-php](https://github.com/pimax/fb-messenger-php)
 
 REQUIREMENTS
 ------------
