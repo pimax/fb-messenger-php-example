@@ -26,6 +26,15 @@ use pimax\Messages\Adjustment;
 // Make Bot Instance
 $bot = new FbBotApp($token);
 
+if (!empty($_REQUEST['menu'])) {
+    $res = $bot->setPersistentMenu([
+        new MessageButton(MessageButton::TYPE_WEB, "First link", "http://yandex.ru"),
+        new MessageButton(MessageButton::TYPE_WEB, "Second link", "http://google.ru")
+    ]);
+
+    echo '<pre>', print_r($res), '</pre>';
+}
+
 // Receive something
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token) {
 
