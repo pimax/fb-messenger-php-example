@@ -172,6 +172,17 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 break;
 
+                case 'set menu':
+                    $bot->setPersistentMenu([
+                        new MessageButton(MessageButton::TYPE_WEB, "First link", "http://yandex.ru"),
+                        new MessageButton(MessageButton::TYPE_WEB, "Second link", "http://google.ru")
+                    ]);
+                break;
+
+                case 'delete menu':
+                    $bot->deleteMenu();
+                break;
+
                 // Other message received
                 default:
                     $bot->send(new Message($message['sender']['id'], 'Sorry. I don’t understand you.'));
