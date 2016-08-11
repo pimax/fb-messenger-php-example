@@ -28,7 +28,10 @@ $bot = new FbBotApp($token);
 
 if (!empty($_REQUEST['local'])) {
 
-    $message =new ImageMessage(1585388421775947, dirname(__FILE__).'/fb4d_logo-2x.png');
+    $message = new ImageMessage(1585388421775947, dirname(__FILE__).'/fb4d_logo-2x.png');
+
+    $message_data = $message->getData();
+    $message_data['message']['attachment']['payload']['url'] = 'fb4d_logo-2x.png';
 
         echo '<pre>', print_r($message->getData()), '</pre>';
 
