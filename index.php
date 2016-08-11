@@ -26,6 +26,12 @@ use pimax\Messages\Adjustment;
 // Make Bot Instance
 $bot = new FbBotApp($token);
 
+if (!empty($_REQUEST['menu'])) {
+    $res = $bot->deletePersistentMenu();
+
+    echo '<pre>', print_r($res), '</pre>';
+}
+
 // Receive something
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token) {
 
@@ -180,7 +186,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 break;
 
                 case 'delete menu':
-                    $bot->deleteMenu();
+                    $bot->deletePersistentMenu();
                 break;
 
                 // Other message received
