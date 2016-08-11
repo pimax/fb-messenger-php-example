@@ -70,7 +70,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 // When bot receive "image"
                 case 'local image':
-                    $bot->send(new ImageMessage($message['sender']['id'], 'fb4d_logo-2x.png'));
+                    $bot->send(new ImageMessage($message['sender']['id'], dirname(__FILE__).'/fb4d_logo-2x.png'));
                     break;
 
                 // When bot receive "profile"
