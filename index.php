@@ -26,6 +26,13 @@ use pimax\Messages\Adjustment;
 // Make Bot Instance
 $bot = new FbBotApp($token);
 
+if (!empty($_REQUEST['local'])) {
+
+    $res = $bot->send(new ImageMessage(1585388421775947, dirname(__FILE__).'/fb4d_logo-2x.png'));
+
+    echo '<pre>', print_r($res), '</pre>';
+}
+
 // Receive something
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_REQUEST['hub_verify_token'] == $verify_token) {
 
