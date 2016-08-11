@@ -68,6 +68,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->send(new ImageMessage($message['sender']['id'], 'https://developers.facebook.com/images/devsite/fb4d_logo-2x.png'));
                     break;
 
+                // When bot receive "image"
+                case 'local image':
+                    $bot->send(new ImageMessage($message['sender']['id'], 'fb4d_logo-2x.png'));
+                    break;
+
                 // When bot receive "profile"
                 case 'profile':
 
