@@ -22,6 +22,7 @@ use pimax\Messages\MessageReceiptElement;
 use pimax\Messages\Address;
 use pimax\Messages\Summary;
 use pimax\Messages\Adjustment;
+use pimax\Messages\AccountLink;
 
 // Make Bot Instance
 $bot = new FbBotApp($token);
@@ -200,6 +201,21 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 case 'delete menu':
                     $bot->deletePersistentMenu();
+                break;
+                
+                case 'login':
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_GENERIC,
+                        [
+                            'elements' => [
+                                new AccountLink(
+                                    'Welcome to Bank',
+                                    'To be sure, everything is safe, you have to login to your administration.',
+                                    'https://www.example.com/oauth/authorize',
+                                    'https://www.facebook.com/images/fb_icon_325x325.png')
+                            ]
+                        ]
+                    ));
                 break;
 
                 // Other message received
