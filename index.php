@@ -217,6 +217,22 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         ]
                     ));
                 break;
+            
+                case 'logout':
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_GENERIC,
+                        [
+                            'elements' => [
+                                new AccountLink(
+                                    'Welcome to Bank',
+                                    'To be sure, everything is safe, you have to login to your administration.',
+                                    '',
+                                    'https://www.facebook.com/images/fb_icon_325x325.png',
+                                    TRUE)
+                            ]
+                        ]
+                    ));
+                break;
 
                 // Other message received
                 default:
