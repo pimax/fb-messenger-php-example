@@ -57,6 +57,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             if (!empty($message['delivery'])) {
                 continue;
             }
+            
+            
+            // skip the echo of my own messages
+            if (($message['message']['is_echo'] == "true")) {
+                continue;
+            }
+            
 
             $command = "";
 
@@ -204,6 +211,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 // Other message received
                 default:
+                    if (!empty($command)) // otherwise "empty message" wont be understood either
                     $bot->send(new Message($message['sender']['id'], 'Sorry. I don’t understand you.'));
             }
         }
