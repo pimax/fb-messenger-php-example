@@ -81,7 +81,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
             switch ($command) {
 
                 // When bot receive "text"
-                case 'text':
+                case !empty($command):
                     $bot->send(new Message($message['sender']['id'], 'This is a simple text message.'));
                     break;
 
