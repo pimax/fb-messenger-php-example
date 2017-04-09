@@ -210,10 +210,18 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 break;
 
                 case 'set menu':
-                    $bot->setPersistentMenu([
-                        new MessageButton(MessageButton::TYPE_WEB, "First link", "http://yandex.ru"),
-                        new MessageButton(MessageButton::TYPE_WEB, "Second link", "http://google.ru")
-                    ]);
+                    $bot->deletePersistentMenu();
+                    $bot->setPersistentMenu(
+                        new LocalizedMenu('default', false, [
+                            new MenuItem('nested', 'My Account',
+                                new MenuItem('nested', 'History',
+                                    new MenuItem('postback', 'History Old', 'HISTORY_OLD_PAYLOAD'),
+                                    new MenuItem('postback', 'History New', 'HISTORY_NEW_PAYLOAD')
+                                ),
+                                new MenuItem('postback', 'Contact_Info', 'CONTACT_INFO_PAYLOAD')
+                            )
+                        ])
+                    );
                 break;
 
                 case 'delete menu':
