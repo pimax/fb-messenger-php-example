@@ -28,14 +28,14 @@ Persistent Menu
 ------------
 This code should create 2 menus:
 1. menu for users with Arabic locale: contains one item "promotions"
-2. menu for users from any other locale which is in this hierarchy:
-.......My Account
-..............|- Pay Bill
-..............|- History
-.....................|- History Old
-.....................|- History new
-..............|- Contact info
-......Promotions
+2. menu for users from any other locale which is in this hierarchy:  
+.......My Account  
+..............|- Pay Bill  
+..............|- History  
+.....................|- History Old  
+.....................|- History new  
+..............|- Contact info  
+......Promotions  
 ```
 $myAccountItems[] = new MenuItem('postback', 'Pay Bill', 'PAYBILL_PAYLOAD');
 $historyItems[]   = new MenuItem('postback', 'History Old', 'HISTORY_OLD_PAYLOAD');
