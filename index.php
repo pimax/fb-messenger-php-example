@@ -107,7 +107,6 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 // When bot receive "profile"
                 case 'profile':
-
                     $user = $bot->userProfile($message['sender']['id']);
                     $bot->send(new StructuredMessage($message['sender']['id'],
                         StructuredMessage::TYPE_GENERIC,
@@ -117,27 +116,25 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ]
                     ));
-
                     break;
 
                 // When bot receive "button"
                 case 'button':
-                  $bot->send(new StructuredMessage($message['sender']['id'],
-                      StructuredMessage::TYPE_BUTTON,
-                      [
-                          'text' => 'Choose category',
-                          'buttons' => [
-                              new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
-                              new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button'),
-                              new MessageButton(MessageButton::TYPE_POSTBACK, 'Third button')
-                          ]
-                      ]
-                  ));
-                break;
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_BUTTON,
+                        [
+                            'text' => 'Choose category',
+                            'buttons' => [
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button'),
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'Third button')
+                            ]
+                        ]
+                    ));
+                    break;
 
                 // When bot receive "generic"
                 case 'generic':
-
                     $bot->send(new StructuredMessage($message['sender']['id'],
                         StructuredMessage::TYPE_GENERIC,
                         [
@@ -159,12 +156,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ]
                     ));
-                    
-                break;
+                    break;
 
                 // When bot receive "receipt"
                 case 'receipt':
-
                     $bot->send(new StructuredMessage($message['sender']['id'],
                         StructuredMessage::TYPE_RECEIPT,
                         [
@@ -206,8 +201,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ]
                     ));
-
-                break;
+                    break;
 
                 case 'set menu':
                     $bot->deletePersistentMenu();
@@ -222,11 +216,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             )
                         ])
                     );
-                break;
+                    break;
 
                 case 'delete menu':
                     $bot->deletePersistentMenu();
-                break;
+                    break;
                 
                 case 'login':
                     $bot->send(new StructuredMessage($message['sender']['id'],
@@ -241,7 +235,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ]
                     ));
-                break;
+                    break;
             
                 case 'logout':
                     $bot->send(new StructuredMessage($message['sender']['id'],
@@ -257,12 +251,12 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ]
                     ));
-                break;
+                    break;
 
                 // Other message received
                 default:
                     if (!empty($command)) // otherwise "empty message" wont be understood either
-                    $bot->send(new Message($message['sender']['id'], 'Sorry. I don’t understand you.'));
+                        $bot->send(new Message($message['sender']['id'], 'Sorry. I don’t understand you.'));
             }
         }
     }
