@@ -12,9 +12,10 @@ if (file_exists(__DIR__.'/config.php')) {
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 use pimax\FbBotApp;
-use pimax\Messages\Message;
-use pimax\Messages\ImageMessage;
 use pimax\UserProfile;
+use pimax\Menu\MenuItem;
+use pimax\Menu\LocalizedMenu;
+use pimax\Messages\Message;
 use pimax\Messages\MessageButton;
 use pimax\Messages\StructuredMessage;
 use pimax\Messages\MessageElement;
@@ -23,6 +24,15 @@ use pimax\Messages\Address;
 use pimax\Messages\Summary;
 use pimax\Messages\Adjustment;
 use pimax\Messages\AccountLink;
+use pimax\Messages\Attachment;
+use pimax\Messages\AudioMessage;
+use pimax\Messages\ImageMessage;
+use pimax\Messages\FileMessage;
+use pimax\Messages\VideoMessage;
+use pimax\Messages\QuickReply;
+use pimax\Messages\QuickReplyButton;
+use pimax\Messages\SenderAction;
+
 
 // Make Bot Instance
 $bot = new FbBotApp($token);
@@ -34,7 +44,7 @@ if (!empty($_REQUEST['local'])) {
     $message_data = $message->getData();
     $message_data['message']['attachment']['payload']['url'] = 'fb4d_logo-2x.png';
 
-        echo '<pre>', print_r($message->getData()), '</pre>';
+    echo '<pre>', print_r($message->getData()), '</pre>';
 
     $res = $bot->send($message);
 

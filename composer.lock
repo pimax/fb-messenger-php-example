@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ce52e91d6d88c8d3d9d7a24140971ea",
     "content-hash": "216980d056a42dc5606a07f58e16cf4d",
     "packages": [
         {
@@ -13,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimax/fb-messenger-php.git",
-                "reference": "398c07d906e7b18970b56cfcefafef82b6b5f97b"
+                "reference": "3305778e7d32667e771ffaeb106bc27e5e91f94a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimax/fb-messenger-php/zipball/398c07d906e7b18970b56cfcefafef82b6b5f97b",
-                "reference": "398c07d906e7b18970b56cfcefafef82b6b5f97b",
+                "url": "https://api.github.com/repos/pimax/fb-messenger-php/zipball/3305778e7d32667e771ffaeb106bc27e5e91f94a",
+                "reference": "3305778e7d32667e771ffaeb106bc27e5e91f94a",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +43,7 @@
             ],
             "description": " Facebook Messenger Bot PHP API",
             "homepage": "https://github.com/pimax/fb-messenger-php",
-            "time": "2016-04-14 18:55:45"
+            "time": "2017-04-09 08:51:32"
         }
     ],
     "packages-dev": [],
