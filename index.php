@@ -114,6 +114,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             'elements' => [
                                 new MessageElement($user->getFirstName()." ".$user->getLastName(), " ", $user->getPicture())
                             ]
+                        ],
+                        [ 
+                        	new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD') 
                         ]
                     ));
                     break;
@@ -129,6 +132,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                                 new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button', 'PAYLOAD 2'),
                                 new MessageButton(MessageButton::TYPE_POSTBACK, 'Third button', 'PAYLOAD 3')
                             ]
+                        ],
+                        [ 
+                        	new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD') 
                         ]
                     ));
                     break;
@@ -154,6 +160,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                                     new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button')
                                 ])
                             ]
+                        ],
+                        [ 
+                        	new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD') 
                         ]
                     ));
                     break;
