@@ -138,7 +138,28 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         ]
                     ));
                     break;
-
+                
+                // When bot receive "quick reply"
+                case 'quick reply':
+                    $bot->send(new QuickReply($message['sender']['id'], 'Your ad here!', 
+                            [
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 1', 'PAYLOAD 1'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 2', 'PAYLOAD 2'),
+                                new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button 3', 'PAYLOAD 3'),
+                            ]
+                    ));
+                    break;
+                    
+                // When bot receive "location"
+                case 'location':
+                    $bot->send(new QuickReply($message['sender']['id'], 'Please share your location', 
+                            [
+                                new QuickReplyButton(QuickReplyButton::TYPE_LOCATION),
+                            ]
+                    ));
+                    break;
+                    
+                    
                 // When bot receive "generic"
                 case 'generic':
                     $bot->send(new StructuredMessage($message['sender']['id'],
