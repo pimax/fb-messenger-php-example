@@ -125,9 +125,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         [
                             'text' => 'Choose category',
                             'buttons' => [
-                                new MessageButton(MessageButton::TYPE_POSTBACK, 'First button'),
-                                new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button'),
-                                new MessageButton(MessageButton::TYPE_POSTBACK, 'Third button')
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'First button', 'PAYLOAD 1'),
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'Second button', 'PAYLOAD 2'),
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'Third button', 'PAYLOAD 3')
                             ]
                         ]
                     ));
