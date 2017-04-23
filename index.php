@@ -97,7 +97,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 // When bot receive "image"
                 case 'image':
-                    $bot->send(new ImageMessage($message['sender']['id'], 'https://developers.facebook.com/images/devsite/fb4d_logo-2x.png'));
+                    $bot->send(new ImageMessage($message['sender']['id'], 'http://bit.ly/2p9WZBi'));
                     break;
 
                 // When bot receive "image"
