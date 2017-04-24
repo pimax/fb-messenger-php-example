@@ -3,8 +3,8 @@
 $verify_token = ""; // Verify token
 $token = ""; // Page token
 
-if (file_exists(__DIR__.'/config.php')) {
-    $config = include __DIR__.'/config.php';
+if (file_exists(__DIR__ . '/config.php')) {
+    $config = include __DIR__ . '/config.php';
     $verify_token = $config['verify_token'];
     $token = $config['token'];
 }
@@ -12,7 +12,6 @@ if (file_exists(__DIR__.'/config.php')) {
 require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 use pimax\FbBotApp;
-use pimax\UserProfile;
 use pimax\Menu\MenuItem;
 use pimax\Menu\LocalizedMenu;
 use pimax\Messages\Message;
@@ -59,22 +58,20 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 } else {
 
     // Other event
-
     $data = json_decode(file_get_contents("php://input"), true, 512, JSON_BIGINT_AS_STRING);
     if (!empty($data['entry'][0]['messaging'])) {
+
         foreach ($data['entry'][0]['messaging'] as $message) {
 
             // Skipping delivery messages
             if (!empty($message['delivery'])) {
                 continue;
             }
-            
-            
+
             // skip the echo of my own messages
             if (($message['message']['is_echo'] == "true")) {
                 continue;
             }
-            
 
             $command = "";
 
@@ -102,7 +99,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
                 // When bot receive "image"
                 case 'local image':
-                    $bot->send(new ImageMessage($message['sender']['id'], dirname(__FILE__).'/fb4d_logo-2x.png'));
+                    $bot->send(new ImageMessage($message['sender']['id'], dirname(__FILE__).'/fb_logo.png'));
                     break;
 
                 // When bot receive "profile"
@@ -190,6 +187,41 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     
                 // When bot receive "list"
                 case 'list':
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                        StructuredMessage::TYPE_LIST,
+                        [
+                            'elements' => [
+                                new MessageElement(
+                                    'Classic T-Shirt Collection', // title
+                                    'See all our colors', // subtitle
+                                    'http://bit.ly/2pYCuIB', // image_url
+                                    [ // buttons
+                                        new MessageButton(MessageButton::TYPE_POSTBACK, // type
+                                            'View', // title
+                                            'POSTBACK' // postback value
+                                        )
+                                    ]
+                                ),
+                                new MessageElement(
+                                    'Classic White T-Shirt', // title
+                                    '100% Cotton, 200% Comfortable', // subtitle
+                                    'http://bit.ly/2pb1hqh', // image_url
+                                    [ // buttons
+                                        new MessageButton(MessageButton::TYPE_WEB, // type
+                                            'View', // title
+                                            'https://google.com' // url
+                                        )
+                                    ]
+                                )
+                            ],
+                            'buttons' => [
+                                new MessageButton(MessageButton::TYPE_POSTBACK, 'First button', 'PAYLOAD 1')
+                            ]
+                        ],
+                        [
+                            new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD')
+                        ]
+                    ));
                     break;
 
                 // When bot receive "receipt"
@@ -285,6 +317,14 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ]
                     ));
+                    break;
+
+                case 'sender action on':
+                    $bot->send(new SenderAction($message['sender']['id'], SenderAction::ACTION_TYPING_ON));
+                    break;
+
+                case 'sender action off':
+                    $bot->send(new SenderAction($message['sender']['id'], SenderAction::ACTION_TYPING_OFF));
                     break;
 
                 // Other message received
