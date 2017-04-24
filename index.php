@@ -187,6 +187,45 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         ]
                     ));
                     break;
+                    
+                // When bot receive "list"
+                case 'list':
+                    $bot->send(new StructuredMessage($message['sender']['id'],
+                                    StructuredMessage::TYPE_LIST,
+                                    [
+                                        "elements" => [
+                                            [
+                                                "title" => "Classic T-Shirt Collection",
+                                                "image_url" => "https://peterssendreceiveapp.ngrok.io/img/collection.png",
+                                                "subtitle" => "See all our colors",
+                                                "default_action" => [
+                                                    "type" => "web_url",
+                                                    "url" => "https://peterssendreceiveapp.ngrok.io/shop_collection",
+                                                    "messenger_extensions" => true,
+                                                    "webview_height_ratio" => "tall",
+                                                    "fallback_url" => "https://peterssendreceiveapp.ngrok.io/"
+                                                ],
+                                                "buttons" => [
+                                                    [
+                                                        "title" => "View",
+                                                        "type" => "web_url",
+                                                        "url" => "https://peterssendreceiveapp.ngrok.io/collection",
+                                                        "messenger_extensions" => true,
+                                                        "webview_height_ratio" => "tall",
+                                                        "fallback_url" => "https://peterssendreceiveapp.ngrok.io/"                        
+                                                    ]
+                                                ]
+                                            ]
+                                        ],
+                                        "buttons" => [
+                                            new MessageButton(MessageButton::TYPE_POSTBACK, 'First button', 'PAYLOAD 1')
+                                        ]
+                                    ],
+                                    [ 
+                                        new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD') 
+                                    ]
+                        ));
+                    break;
 
                 // When bot receive "receipt"
                 case 'receipt':
