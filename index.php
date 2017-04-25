@@ -77,11 +77,11 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
             // When bot receive message from user
             if (!empty($message['message'])) {
-                $command = $message['message']['text'];
+                $command = trim($message['message']['text']);
 
             // When bot receive button click from user
             } else if (!empty($message['postback'])) {
-                $command = $message['postback']['payload'];
+                $command = trim($message['postback']['payload']);
             }
 
             // Handle command
@@ -97,10 +97,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->send(new ImageMessage($message['sender']['id'], 'http://bit.ly/2p9WZBi'));
                     break;
 
-                // When bot receive "image"
-                case 'local image':
-                    $bot->send(new ImageMessage($message['sender']['id'], dirname(__FILE__).'/fb_logo.png'));
-                    break;
+                // When bot receive "local image"
+                //case 'local image':
+                    //$bot->send(new ImageMessage($message['sender']['id'], dirname(__FILE__).'/fb_logo.png'));
+                    //break;
 
                 // When bot receive "profile"
                 case 'profile':
@@ -155,7 +155,6 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                     ));
                     break;
-                    
                     
                 // When bot receive "generic"
                 case 'generic':
@@ -269,6 +268,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     ));
                     break;
 
+                // When bot receive "set menu"
                 case 'set menu':
                     $bot->deletePersistentMenu();
                     $bot->setPersistentMenu(
@@ -284,10 +284,12 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     );
                     break;
 
+                // When bot receive "delete menu"
                 case 'delete menu':
                     $bot->deletePersistentMenu();
                     break;
-                
+
+                // When bot receive "login"
                 case 'login':
                     $bot->send(new StructuredMessage($message['sender']['id'],
                         StructuredMessage::TYPE_GENERIC,
@@ -302,7 +304,8 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                         ]
                     ));
                     break;
-            
+
+                // When bot receive "logout"
                 case 'logout':
                     $bot->send(new StructuredMessage($message['sender']['id'],
                         StructuredMessage::TYPE_GENERIC,
@@ -319,12 +322,52 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     ));
                     break;
 
+                // When bot receive "sender action on"
                 case 'sender action on':
                     $bot->send(new SenderAction($message['sender']['id'], SenderAction::ACTION_TYPING_ON));
                     break;
 
+                // When bot receive "sender action off"
                 case 'sender action off':
                     $bot->send(new SenderAction($message['sender']['id'], SenderAction::ACTION_TYPING_OFF));
+                    break;
+
+                // When bot receive "show greeting text"
+                case 'show greeting text':
+                    $response = $bot->getGreetingText();
+                    $text = "";
+                    if(isset($response['data'][0]['greeting']) AND is_array($response['data'][0]['greeting'])){
+                        foreach ($response['data'][0]['greeting'] as $greeting)
+                        {
+                            $text .= $greeting['locale']. ": ".$greeting['text']."\n";
+                        }
+                    } else {
+                        $text = "Greeting text not set!";
+                    }
+                    $bot->send(new Message($message['sender']['id'], $text));
+                    break;
+
+                // When bot receive "delete greeting text"
+                case 'delete greeting text':
+                    $bot->deleteGreetingText();
+                    break;
+
+                // When bot receive "delete greeting text"
+                case 'set greeting text':
+                    $bot->setGreetingText([
+                        [
+                            "locale" => "default",
+                            "text" => "Hello {{user_full_name}}"
+                        ],
+                        [
+                            "locale" => "en_US",
+                            "text" => "Hi {{user_first_name}}, welcome to this bot."
+                        ],
+                        [
+                            "locale" => "de_DE",
+                            "text" => "Hallo {{user_first_name}}, herzlich willkommen."
+                        ]
+                    ]);
                     break;
 
                 // Other message received
