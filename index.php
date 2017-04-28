@@ -384,6 +384,35 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->deleteTargetAudience();
                     break;
 
+                // When bot receive "show domain whitelist"
+                case 'show domain whitelist':
+                    $response = $bot->getDomainWhitelist();
+                    $text = "";
+                    if(isset($response['data'][0]['whitelisted_domains']) AND is_array($response['data'][0]['whitelisted_domains'])){
+                        foreach ($response['data'][0]['whitelisted_domains'] as $domains)
+                        {
+                            $text .= $domains."\n";
+                        }
+                    } else {
+                        $text = "No domains in whitelist!";
+                    }
+                    $bot->send(new Message($message['sender']['id'], $text));
+                    break;
+
+                // When bot receive "set domain whitelist"
+                case 'set domain whitelist':
+                    //$bot->setDomainWhitelist("https://petersfancyapparel.com");
+                    $bot->setDomainWhitelist([
+                        "https://petersfancyapparel-1.com",
+                        "https://petersfancyapparel-2.com",
+                    ]);
+                    break;
+
+                // When bot receive "delete domain whitelist"
+                case 'delete domain whitelist':
+                    $bot->deleteDomainWhitelist();
+                    break;
+
                 // Other message received
                 default:
                     if (!empty($command)) // otherwise "empty message" wont be understood either

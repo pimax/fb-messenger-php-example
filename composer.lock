@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimax/fb-messenger-php.git",
-                "reference": "3305778e7d32667e771ffaeb106bc27e5e91f94a"
+                "reference": "54ecce83089cd4a26927858ae9bf3d327c877837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimax/fb-messenger-php/zipball/3305778e7d32667e771ffaeb106bc27e5e91f94a",
-                "reference": "3305778e7d32667e771ffaeb106bc27e5e91f94a",
+                "url": "https://api.github.com/repos/pimax/fb-messenger-php/zipball/54ecce83089cd4a26927858ae9bf3d327c877837",
+                "reference": "54ecce83089cd4a26927858ae9bf3d327c877837",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
             ],
             "description": " Facebook Messenger Bot PHP API",
             "homepage": "https://github.com/pimax/fb-messenger-php",
-            "time": "2017-04-09 08:51:32"
+            "time": "2017-04-28 13:10:45"
         }
     ],
     "packages-dev": [],
