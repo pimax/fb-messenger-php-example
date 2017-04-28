@@ -348,7 +348,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->deleteGreetingText();
                     break;
 
-                // When bot receive "delete greeting text"
+                // When bot receive "set greeting text"
                 case 'set greeting text':
                     $bot->setGreetingText([
                         [
@@ -364,6 +364,24 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             "text" => "Hallo {{user_first_name}}, herzlich willkommen."
                         ]
                     ]);
+                    break;
+
+                // When bot receive "set target audience"
+                case 'show target audience':
+                    $response = $bot->getTargetAudience();
+                    break;
+
+                // When bot receive "set target audience"
+                case 'set target audience':
+                    $bot->setTargetAudience("all");
+                    //$bot->setTargetAudience("none");
+                    //$bot->setTargetAudience("custom", "whitelist", ["US", "CA"]);
+                    //$bot->setTargetAudience("custom", "blacklist", ["US", "CA"]);
+                    break;
+
+                // When bot receive "delete target audience"
+                case 'delete target audience':
+                    $bot->deleteTargetAudience();
                     break;
 
                 // Other message received
