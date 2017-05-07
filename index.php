@@ -269,13 +269,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->deletePersistentMenu();
                     $bot->setPersistentMenu(
                         new LocalizedMenu('default', false, [
-                            new MenuItem('nested', 'My Account',
-                                new MenuItem('nested', 'History',
+                            new MenuItem('nested', 'My Account', [
+                                new MenuItem('nested', 'History', [
                                     new MenuItem('postback', 'History Old', 'HISTORY_OLD_PAYLOAD'),
                                     new MenuItem('postback', 'History New', 'HISTORY_NEW_PAYLOAD')
-                                ),
+                                ]),
                                 new MenuItem('postback', 'Contact_Info', 'CONTACT_INFO_PAYLOAD')
-                            )
+                            ])
                         ])
                     );
                     break;
