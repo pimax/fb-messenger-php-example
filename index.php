@@ -77,7 +77,9 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
 
             // When bot receive button click from user
             } else if (!empty($message['postback'])) {
-                $command = trim($message['postback']['payload']);
+                $text = "Postback received: ".trim($message['postback']['payload']);
+                $bot->send(new Message($message['sender']['id'], $text));
+                continue;
             }
 
             // Handle command
@@ -175,7 +177,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                             ]
                         ],
                         [ 
-                        	new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD') 
+                        	new QuickReplyButton(QuickReplyButton::TYPE_TEXT, 'QR button','PAYLOAD')
                         ]
                     ));
                     break;
@@ -269,12 +271,12 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                     $bot->deletePersistentMenu();
                     $bot->setPersistentMenu(
                         new LocalizedMenu('default', false, [
-                            new MenuItem('nested', 'My Account', [
-                                new MenuItem('nested', 'History', [
-                                    new MenuItem('postback', 'History Old', 'HISTORY_OLD_PAYLOAD'),
-                                    new MenuItem('postback', 'History New', 'HISTORY_NEW_PAYLOAD')
+                            new MenuItem(MenuItem::TYPE_NESTED, 'My Account', [
+                                new MenuItem(MenuItem::TYPE_NESTED, 'History', [
+                                    new MenuItem(MenuItem::TYPE_POSTBACK, 'History Old', 'HISTORY_OLD_PAYLOAD'),
+                                    new MenuItem(MenuItem::TYPE_POSTBACK, 'History New', 'HISTORY_NEW_PAYLOAD')
                                 ]),
-                                new MenuItem('postback', 'Contact_Info', 'CONTACT_INFO_PAYLOAD')
+                                new MenuItem(MenuItem::TYPE_POSTBACK, 'Contact Info', 'CONTACT_INFO_PAYLOAD')
                             ])
                         ])
                     );
@@ -326,6 +328,16 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 // When bot receive "sender action off"
                 case 'sender action off':
                     $bot->send(new SenderAction($message['sender']['id'], SenderAction::ACTION_TYPING_OFF));
+                    break;
+
+                // When bot receive "set get started button"
+                case 'set get started button':
+                    $bot->setGetStartedButton('PAYLOAD - get started button');
+                    break;
+
+                // When bot receive "delete get started button"
+                case 'delete get started button':
+                    $bot->deleteGetStartedButton();
                     break;
 
                 // When bot receive "show greeting text"
