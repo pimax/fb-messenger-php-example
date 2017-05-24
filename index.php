@@ -269,7 +269,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                 // When bot receive "set menu"
                 case 'set menu':
                     $bot->deletePersistentMenu();
-                    $bot->setPersistentMenu(
+                    $bot->setPersistentMenu([
                         new LocalizedMenu('default', false, [
                             new MenuItem(MenuItem::TYPE_NESTED, 'My Account', [
                                 new MenuItem(MenuItem::TYPE_NESTED, 'History', [
@@ -279,7 +279,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe' && $_R
                                 new MenuItem(MenuItem::TYPE_POSTBACK, 'Contact Info', 'CONTACT_INFO_PAYLOAD')
                             ])
                         ])
-                    );
+                    ]);
                     break;
 
                 // When bot receive "delete menu"
